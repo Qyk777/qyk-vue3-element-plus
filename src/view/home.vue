@@ -85,28 +85,32 @@
         <el-container>
           <!-- 侧边栏 -->
           <el-aside width="300px">
-            <ul>
-              <li>发现音乐</li>
-              <li>视频</li>
-              <li>朋友</li>
-              <li>直播</li>
-              <li>私人FM</li>
-            </ul>
-            <ul>
-              <li>我的音乐</li>
-              <li>本地音乐</li>
-              <li>下载管理</li>
-            </ul>
-            <ul>
-              <li>创建的歌单</li>
-              <li>我喜欢的音乐</li>
-            </ul>
+            <div class="aside">
+              <ul class="levelone">
+                <li>发现音乐</li>
+                <li>视频</li>
+                <li>朋友</li>
+                <li>直播</li>
+                <li>私人FM</li>
+              </ul>
+              <ul>
+                <li>我的音乐</li>
+                <li>本地音乐</li>
+                <li>下载管理</li>
+              </ul>
+              <ul>
+                <li>创建的歌单</li>
+                <li>我喜欢的音乐</li>
+              </ul>
+            </div>
           </el-aside>
           <!-- 内容 -->
-          <el-main>Main</el-main>
+          <el-main>
+            <div style="height: 100px"></div>
+          </el-main>
         </el-container>
         <!-- 底部 -->
-        <el-footer height="120px">Footer</el-footer>
+        <el-footer height="100px"> 底部 </el-footer>
       </el-container>
     </el-container>
   </div>
@@ -130,13 +134,15 @@ export default {
 }
 
 .el-aside {
-  background-color: #d3dce6;
+  background-color: #fff;
   color: #333;
-  text-align: center;
+  text-align: left;
+  padding: 20px 20px 0 20px;
+  border-right: 1px solid #e1e1e1;
 }
 
 .el-main {
-  background-color: #e9eef3;
+  background-color: #fff;
   color: #333;
   text-align: center;
 }
@@ -146,8 +152,10 @@ body > .el-container {
 }
 
 .home {
+  height: 100%;
   min-width: 1100px !important; //限制页面大小
   .box {
+    height: 100%;
     .titlebox {
       display: flex;
       justify-content: space-between;
@@ -255,9 +263,16 @@ body > .el-container {
             width: 40px;
             height: 40px;
             margin: 20px 20px 0 0;
-            cursor: pointer;  
+            cursor: pointer;
           }
         }
+      }
+    }
+    .aside {
+      font-size: 25px;
+      color: #999;
+      li {
+        margin: 20px 0;
       }
     }
   }
