@@ -4,7 +4,7 @@ const router = createRouter({
     routes: [
         {
             path: "/",
-            redirect: "/home"
+            redirect: "/home/Discovermusic/Personalrecommendation"
         },
         {
             path: "/:catchAll(.*)",
@@ -13,11 +13,55 @@ const router = createRouter({
         },
         {
             path: '/home',
-            component: () => import('../view/home.vue'),//按需加载路由
+            component: () => import('../view/home.vue'),
             name: 'home',
-            meta: {
-                index: 1
-            }
+            children: [
+                {
+                    label: '发现音乐',
+                    path: '/home/Discovermusic',
+                    component: () => import('../components/Discovermusic/Discovermusic.vue'),
+                    name: 'Discovermusic',
+                    children: [
+                        {
+                            label: '个性推荐',
+                            path: '/home/Discovermusic/Personalrecommendation',
+                            component: () => import('../components/Discovermusic/Personalrecommendation.vue'),
+                            name: 'Personalrecommendation',
+                        },
+                        {
+                            label: '歌单',
+                            path: '/home/Discovermusic/songList',
+                            component: () => import('../components/Discovermusic/songList.vue'),
+                            name: 'songList',
+                        },
+                        {
+                            label: '主播电台',
+                            path: '/home/Discovermusic/Anchorstation',
+                            component: () => import('../components/Discovermusic/Anchorstation.vue'),
+                            name: 'Anchorstation',
+                        },
+                        {
+                            label: '排行榜',
+                            path: '/home/Discovermusic/Leaderboard',
+                            component: () => import('../components/Discovermusic/Leaderboard.vue'),
+                            name: 'Leaderboard',
+                        },
+                        {
+                            label: '歌手',
+                            path: '/home/Discovermusic/singer',
+                            component: () => import('../components/Discovermusic/singer.vue'),
+                            name: 'singer',
+                        },
+                        {
+                            label: '最新音乐',
+                            path: '/home/Discovermusic/Latestmusic',
+                            component: () => import('../components/Discovermusic/Latestmusic.vue'),
+                            name: 'Latestmusic',
+                        },
+                        
+                    ]
+                },
+            ]
         }
     ]
 })
