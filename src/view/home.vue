@@ -110,7 +110,104 @@
           </el-main>
         </el-container>
         <!-- 底部 -->
-        <el-footer height="100px"> 底部 </el-footer>
+        <el-footer height="100px">
+          <div class="bottombox">
+            <!-- 左侧歌曲信息 -->
+            <div class="msimg">
+              <div class="imgbox">
+                <img src="../assets/404.jpg" />
+              </div>
+              <div>
+                <div class="song">
+                  <div class="songtitle">
+                    <span>星辰大海</span>
+                  </div>
+                  <div
+                    v-show="!like"
+                    style="margin-top: 22px; cursor: pointer"
+                    @click="like = !like"
+                  >
+                    <svg class="icon aixin" aria-hidden="true">
+                      <use xlink:href="#icon-aixin1"></use>
+                    </svg>
+                  </div>
+                  <div
+                    v-show="like"
+                    style="margin-top: 22px; cursor: pointer"
+                    @click="like = !like"
+                  >
+                    <svg class="icon aixin" aria-hidden="true">
+                      <use xlink:href="#icon-aixin2"></use>
+                    </svg>
+                  </div>
+                </div>
+                <p style="text-align: left">黄霄云</p>
+              </div>
+            </div>
+            <!-- 中间播放控制 -->
+            <div>
+              <div>
+                <div class="player">
+                  <div>
+                    <span class="iconfont icon-shangyiqu"></span>
+                  </div>
+                  <div
+                    v-show="play"
+                    style="margin: 0 100px"
+                    @click="play = !play"
+                  >
+                    <span class="iconfont icon-bofang"></span>
+                  </div>
+                  <div
+                    v-show="!play"
+                    style="margin: 0 100px"
+                    @click="play = !play"
+                  >
+                    <span class="iconfont icon-zanting"></span>
+                  </div>
+                  <div>
+                    <span class="iconfont icon-xiayiqu"></span>
+                  </div>
+                </div>
+                <div>
+                  <el-progress
+                    :percentage="100"
+                    color="#F4676E"
+                    style="width: 600px; margin-left: 50px"
+                  >
+                    <template #default="{ percentage }">
+                      <span class="percentage-value"></span>
+                    </template>
+                  </el-progress>
+                </div>
+              </div>
+            </div>
+            <!-- 右侧音量列表 -->
+            <div class="volume">
+              <div style="margin-top: 30px">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-iconhuizong_huaban1fuben9"></use>
+                </svg>
+              </div>
+              <div style="margin-top: 45px; margin-left: 10px">
+                <el-progress
+                  :percentage="100"
+                  color="#F4676E"
+                  style="width: 160px"
+                >
+                  <template #default="{ percentage }">
+                    <span class="percentage-value"></span>
+                  </template>
+                </el-progress>
+              </div>
+              <div style="margin: 30px 20px 20px 0">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-liebiao"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </el-footer>
       </el-container>
     </el-container>
   </div>
@@ -121,6 +218,8 @@ export default {
   setup() {
     return {
       searchinput: ref(""),
+      like: ref(false),
+      play: ref(false),
     };
   },
 };
@@ -129,13 +228,13 @@ export default {
 .el-header,
 .el-footer {
   padding: 0;
-  background-color: rgba($color: #ec4141, $alpha: 0.8);
+  background-color: rgba($color: #f9b338, $alpha: 0.7);
   text-align: center;
 }
 
 .el-aside {
   background-color: #fff;
-  color: #333;
+  color: #999;
   text-align: left;
   padding: 20px 20px 0 20px;
   border-right: 1px solid #e1e1e1;
@@ -143,7 +242,7 @@ export default {
 
 .el-main {
   background-color: #fff;
-  color: #333;
+  color: #999;
   text-align: center;
 }
 
@@ -273,6 +372,51 @@ body > .el-container {
       color: #999;
       li {
         margin: 20px 0;
+      }
+    }
+    .bottombox {
+      display: flex;
+      justify-content: space-between;
+      .msimg {
+        display: flex;
+        width: 350px;
+        .imgbox {
+          width: 60px;
+          height: 60px;
+          overflow: hidden;
+          border-radius: 10%;
+          margin: 20px;
+        }
+        .song {
+          display: flex;
+          .songtitle {
+            margin: 30px 10px 10px 0;
+          }
+        }
+        .aixin {
+          width: 30px;
+          height: 30px;
+        }
+      }
+      .player {
+        display: flex;
+        justify-content: center;
+        height: 60px;
+        margin-top: 15px;
+        .iconfont {
+          font-size: 40px;
+          cursor: pointer;
+        }
+      }
+      .volume {
+        display: flex;
+        justify-content: flex-end;
+        width: 350px;
+        .icon {
+          width: 40px;
+          height: 40px;
+          cursor: pointer;
+        }
       }
     }
   }
