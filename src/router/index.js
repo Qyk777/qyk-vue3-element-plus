@@ -7,6 +7,11 @@ const router = createRouter({
             redirect: "/home"
         },
         {
+            path: "/:catchAll(.*)",
+            name: '404',
+            component: () => import('../view/404.vue')
+        },
+        {
             path: '/home',
             component: () => import('../view/home.vue'),//按需加载路由
             name: 'home',
