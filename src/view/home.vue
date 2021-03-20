@@ -104,9 +104,9 @@
               </ul>
             </div>
           </el-aside>
-          <!-- 内容 -->
+          <!-- 子路由内容 -->
           <el-main>
-            <div style="height: 100px"></div>
+            <router-view></router-view>
           </el-main>
         </el-container>
         <!-- 底部 -->
@@ -241,6 +241,7 @@ export default {
 }
 
 .el-main {
+  padding: 0;
   background-color: #fff;
   color: #999;
   text-align: center;
@@ -372,6 +373,7 @@ body > .el-container {
       color: #999;
       li {
         margin: 20px 0;
+        cursor: pointer;
       }
     }
     .bottombox {

@@ -1,0 +1,10 @@
+<template>
+  <div>个性推荐</div>
+</template>
+<script>
+export default {
+  setup() {},
+};
+</script>
+<style scoped lang="scss">
+</style>
