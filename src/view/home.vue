@@ -87,7 +87,9 @@
           <el-aside width="300px">
             <div class="aside">
               <ul class="levelone">
-                <li>发现音乐</li>
+                <li @click="$router.push({ name: 'Personalrecommendation' })">
+                  发现音乐
+                </li>
                 <li>视频</li>
                 <li>朋友</li>
                 <li>直播</li>
@@ -266,6 +268,7 @@ body > .el-container {
           position: absolute;
           left: 15px;
           top: 15px;
+          cursor: pointer;
           .mango {
             width: 50px;
             height: 50px;

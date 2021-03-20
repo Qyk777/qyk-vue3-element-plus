@@ -4,7 +4,7 @@ const router = createRouter({
     routes: [
         {
             path: "/",
-            redirect: "/home"
+            redirect: "/home/Discovermusic/Personalrecommendation"
         },
         {
             path: "/:catchAll(.*)",
@@ -58,7 +58,7 @@ const router = createRouter({
                             component: () => import('../components/Discovermusic/Latestmusic.vue'),
                             name: 'Latestmusic',
                         },
-
+                        
                     ]
                 },
             ]

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="discovermusic">
     <div>
       <el-menu
         :default-active="activeIndex"
@@ -29,12 +29,12 @@ export default {
   },
   methods: {
     handleSelect(val) {
-      if (val === "1") this.$router.push({name: 'Personalrecommendation'});
-      if (val === "2") this.$router.push({name: 'songList'});
-      if (val === "3") this.$router.push({name: 'Anchorstation'});
-      if (val === "4") this.$router.push({name: 'Leaderboard'});
-      if (val === "5") this.$router.push({name: 'singer'});
-      if (val === "6") this.$router.push({name: 'Latestmusic'});
+      if (val === "1") this.$router.push({ name: "Personalrecommendation" });
+      if (val === "2") this.$router.push({ name: "songList" });
+      if (val === "3") this.$router.push({ name: "Anchorstation" });
+      if (val === "4") this.$router.push({ name: "Leaderboard" });
+      if (val === "5") this.$router.push({ name: "singer" });
+      if (val === "6") this.$router.push({ name: "Latestmusic" });
     },
   },
 };
