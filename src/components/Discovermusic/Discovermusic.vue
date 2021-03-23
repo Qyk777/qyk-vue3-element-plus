@@ -27,6 +27,11 @@ export default {
       activeIndex: ref("1"),
     };
   },
+  watch: {
+    $route(to) {
+      this.activeIndex = to.meta.index;
+    },
+  },
   methods: {
     handleSelect(val) {
       if (val === "1") this.$router.push({ name: "Personalrecommendation" });
