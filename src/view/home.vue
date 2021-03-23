@@ -20,13 +20,13 @@
               <div class="arrow">
                 <!-- 左箭头 -->
                 <div>
-                  <div class="round left">
+                  <div class="round left" @click="$router.go(-1)">
                     <span class="iconfont icon-arrow-left-bold"></span>
                   </div>
                 </div>
                 <!-- 右箭头 -->
                 <div>
-                  <div class="round right">
+                  <div class="round right" @click="$router.go(+1)">
                     <span class="iconfont icon-arrow-right-bold"></span>
                   </div>
                 </div>
@@ -56,13 +56,13 @@
           </div>
           <!-- 右侧 -->
           <div class="rightbox">
-            <div class="userimg">
+            <div class="userimg" @click="login">
               <el-avatar
                 :size="size"
                 style="margin: 0 10px 0 10px; vertical-align: middle"
-                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                :src="userImg"
               ></el-avatar>
-              <span>未登录</span>
+              <span>{{ userName ? userName : "未登录" }}</span>
             </div>
             <!-- 设置换肤邮件 -->
             <div class="features">
@@ -102,7 +102,18 @@
               </ul>
               <ul>
                 <li>创建的歌单</li>
-                <li>我喜欢的音乐</li>
+                <li>
+                  <div>
+                    <span>我喜欢的音乐</span>
+                    <svg
+                      class="icon"
+                      aria-hidden="true"
+                      style="width: 30px; height: 30px; margin: 0px 0 0 5px"
+                    >
+                      <use xlink:href="#icon-aixin"></use>
+                    </svg>
+                  </div>
+                </li>
               </ul>
             </div>
           </el-aside>
@@ -212,18 +223,134 @@
         </el-footer>
       </el-container>
     </el-container>
+    <!-- 对话框 -->
+    <el-dialog
+      title="请输入账号密码"
+      v-model="dialogVisible"
+      width="20%"
+      :before-close="handleClose"
+    >
+      <el-form
+        :model="ruleForm"
+        ref="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="手机号码" prop="phone">
+          <el-input v-model.number="ruleForm.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input
+            type="password"
+            v-model="ruleForm.password"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="submitForm">登录</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
 import { ref } from "vue";
+import { ElMessage } from "element-plus";
+import { musicLogin } from "../api/login";
 export default {
   setup() {
     return {
       searchinput: ref(""),
       like: ref(false),
       play: ref(false),
+      dialogVisible: ref(false),
+      loginstatus: ref(false),
     };
   },
+  data() {
+    return {
+      ruleForm: {
+        phone: "",
+        password: "",
+      },
+    };
+  },
+  computed: {
+    userName() {
+      return this.$store.getters.getuserName; //用户名
+    },
+    userImg() {
+      return this.$store.getters.getuserImg; //用户头像
+    },
+  },
+  methods: {
+    //登录点击
+    login() {
+      if (this.loginstatus) {
+        this.open();
+      } else {
+        this.dialogVisible = true;
+      }
+    },
+    //登录方法
+    submitForm() {
+      if (
+        (this.ruleForm.phone + "").trim() &&
+        (this.ruleForm.password + "").trim()
+      ) {
+        musicLogin(this.ruleForm).then((res) => {
+          if (res.code === 200) {
+            ElMessage.success({
+              message: "登录成功",
+              type: "success",
+            });
+            this.$store.commit("setUser", res);
+            this.loginstatus = true;
+            this.dialogVisible = false;
+          } else {
+            ElMessage.error("账号或密码错误");
+          }
+        });
+      } else if (
+        !(this.ruleForm.phone + "").trim() &&
+        !(this.ruleForm.password + "").trim()
+      ) {
+        ElMessage.warning({
+          message: "账号和密码不能为空",
+          type: "warning",
+        });
+      } else if (!(this.ruleForm.password + "").trim()) {
+        ElMessage.warning({
+          message: "密码不能为空",
+          type: "warning",
+        });
+      } else if (!(this.ruleForm.phone + "").trim()) {
+        ElMessage.warning({
+          message: "账号不能为空",
+          type: "warning",
+        });
+      }
+    },
+    //登出弹窗
+    open() {
+      this.$confirm("此操作将退出登录, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$store.commit("signOut");
+          this.$message({
+            type: "success",
+            message: "退出登录成功!",
+          });
+          this.loginstatus = false;
+        })
+        .catch(() => {});
+    },
+  },
+  mounted() {},
 };
 </script>
 <style scoped lang="scss">
@@ -255,7 +382,7 @@ body > .el-container {
 
 .home {
   height: 100%;
-  min-width: 1100px !important; //限制页面大小
+  min-width: 1200px !important; //限制页面大小
   .box {
     height: 100%;
     .titlebox {
@@ -375,8 +502,13 @@ body > .el-container {
       font-size: 25px;
       color: #999;
       li {
+        padding: 5px;
         margin: 20px 0;
+        border-radius: 3px;
         cursor: pointer;
+        &:hover {
+          background-color: rgba($color: #fcc776, $alpha: 0.6);
+        }
       }
     }
     .bottombox {

@@ -27,38 +27,56 @@ const router = createRouter({
                             path: '/home/Discovermusic/Personalrecommendation',
                             component: () => import('../components/Discovermusic/Personalrecommendation.vue'),
                             name: 'Personalrecommendation',
+                            meta: {
+                                index: 1
+                            }
                         },
                         {
                             label: '歌单',
                             path: '/home/Discovermusic/songList',
                             component: () => import('../components/Discovermusic/songList.vue'),
                             name: 'songList',
+                            meta: {
+                                index: 2
+                            }
                         },
                         {
                             label: '主播电台',
                             path: '/home/Discovermusic/Anchorstation',
                             component: () => import('../components/Discovermusic/Anchorstation.vue'),
                             name: 'Anchorstation',
+                            meta: {
+                                index: 3
+                            }
                         },
                         {
                             label: '排行榜',
                             path: '/home/Discovermusic/Leaderboard',
                             component: () => import('../components/Discovermusic/Leaderboard.vue'),
                             name: 'Leaderboard',
+                            meta: {
+                                index: 4
+                            }
                         },
                         {
                             label: '歌手',
                             path: '/home/Discovermusic/singer',
                             component: () => import('../components/Discovermusic/singer.vue'),
                             name: 'singer',
+                            meta: {
+                                index: 5
+                            }
                         },
                         {
                             label: '最新音乐',
                             path: '/home/Discovermusic/Latestmusic',
                             component: () => import('../components/Discovermusic/Latestmusic.vue'),
                             name: 'Latestmusic',
+                            meta: {
+                                index: 6
+                            }
                         },
-                        
+
                     ]
                 },
             ]
